@@ -29,7 +29,10 @@ export const CheckLotto: React.FC<ICheckLotto> = (props) => {
             placeholder="กรุณากรอกตัวเลข"
             value={lottoNumberToCheck}
             onChange={(event) => {
-              setLottoNumberToCheck(event.target.value);
+              const inputValue = event.target.value;
+              const sanitizedInput = inputValue.replace(/[^0-9]/g, "");
+              const limitedInput = sanitizedInput.slice(0, 3);
+              setLottoNumberToCheck(limitedInput);
             }}
             style={{ width: "40%" }}
           />
