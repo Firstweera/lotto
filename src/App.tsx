@@ -28,7 +28,7 @@ const App = () => {
   );
   const [lottoNumberToCheck, setLottoNumberToCheck] = useState<string>("");
   const [searchPrizes, setSearchPrizes] = useState<boolean>(false);
-  const [resultMessage, setResultMessage] = useState<string>("");
+  const [resultMessage, setResultMessage] = useState<JSX.Element>(<></>);
 
   const generateLottoNumber = () => {
     const min = 0;
@@ -78,33 +78,66 @@ const App = () => {
   };
 
   const checkPrize = (lottoNumberToCheck: string) => {
-    // Check if the lotto number matches the first prize
+    const last2DigitsOfLottoNumber = lottoNumberToCheck.slice(-2);
+
+    // Check if the lotto number matches the first prize and last 2 digits
     if (lottoNumberToCheck === firstPrize) {
-      return "Congratulations! You've won the first prize! and You've matched the last 2 digits of the first prize!";
+      return (
+        <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5">
+          ยินดีด้วย...คุณถูกรางวัลที่ 1 และ รางวัลเลขท้าย 2 ตัว
+        </div>
+      );
+    }
+
+    // Check if the lotto number matches any of the second prizes last 2 digits
+    if (
+      secondPrizes.includes(lottoNumberToCheck) &&
+      last2DigitsOfLottoNumber === last2DigitsPrize
+    ) {
+      return (
+        <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5 tw-rounded-md">
+          ยินดีด้วย...คุณถูกรางวัลที่ 2 และ รางวัลเลขท้าย 2 ตัว
+        </div>
+      );
     }
 
     // Check if the lotto number matches any of the second prizes
     if (secondPrizes.includes(lottoNumberToCheck)) {
-      return "Congratulations! You've won a second prize!";
+      return (
+        <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5 tw-rounded-md">
+          ยินดีด้วย...คุณถูกรางวัลที่ 2
+        </div>
+      );
     }
 
     // Check if the lotto number matches any of the side prizes (first prize minus 1 and plus 1)
     if (sidePrizes.includes(lottoNumberToCheck)) {
-      return "Congratulations! You've won a side prize!";
+      return (
+        <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5 tw-rounded-md">
+          ยินดีด้วย...ถูกรางวัลข้างเคียงรางวัลที่ 1
+        </div>
+      );
     }
 
     // Check if the last 2 digits of the lotto number match the last 2 digits of the first prize
-    const last2DigitsOfLottoNumber = lottoNumberToCheck.slice(-2);
     if (last2DigitsOfLottoNumber === last2DigitsPrize) {
-      return "Congratulations! You've matched the last 2 digits of the first prize!";
+      return (
+        <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5 tw-rounded-md">
+           ยินดีด้วย...คุณถูกรางวัลเลขท้าย 2 ตัว
+        </div>
+      );
     }
 
-    return "Sorry, you didn't win a prize this time.";
+    return (
+      <div className="tw-text-white tw-bg-red-500 tw-mt-5 tw-p-5 tw-rounded-md">
+        เสียใจด้วย...คุณไม่ถูกรางวัล
+      </div>
+    );
   };
 
   const handleCheckPrize = () => {
     // Call the checkPrize function to check the prize
-    const prizeResult = checkPrize(lottoNumberToCheck);
+    const prizeResult: JSX.Element = checkPrize(lottoNumberToCheck);
     setResultMessage(prizeResult);
     console.log(prizeResult); // This will log the result of checking the lotto number.
 
@@ -116,11 +149,12 @@ const App = () => {
     <>
       <ContentContainer>
         <div className="tw-p-5">
-          <Header handleGeneratePrizes={handleGeneratePrizes} />
+          <Header />
         </div>
 
         <div className="tw-p-5">
           <DisplayLotto
+            handleGeneratePrizes={handleGeneratePrizes}
             firstPrize={firstPrize}
             secondPrizes={secondPrizes}
             sidePrizes={sidePrizes}
@@ -128,7 +162,7 @@ const App = () => {
           />
         </div>
 
-        <div>
+        <div className="tw-p-5">
           <CheckLotto
             lottoNumberToCheck={lottoNumberToCheck}
             setLottoNumberToCheck={setLottoNumberToCheck}
