@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CheckLotto,
   ContentContainer,
@@ -29,6 +29,13 @@ const App = () => {
   const [lottoNumberToCheck, setLottoNumberToCheck] = useState<string>("");
   const [searchPrizes, setSearchPrizes] = useState<boolean>(false);
   const [resultMessage, setResultMessage] = useState<JSX.Element>(<></>);
+  const [tableLotto, setTableLotto] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (firstPrize !== "") {
+      setTableLotto(true);
+    }
+  }, []);
 
   const generateLottoNumber = () => {
     const min = 0;
@@ -71,6 +78,7 @@ const App = () => {
     localStorage.setItem("sidePrizes", JSON.stringify(newSidePrizes));
     localStorage.setItem("last2DigitsPrize", newLast2DigitsPrize);
 
+    setTableLotto(true);
     // console.log("Generating First Prize:", newFirstPrize);
     // console.log("Generating Second Prizes:", newSecondPrizes);
     // console.log("Generating Side Prizes:", newSidePrizes);
@@ -123,7 +131,7 @@ const App = () => {
     if (last2DigitsOfLottoNumber === last2DigitsPrize) {
       return (
         <div className="tw-text-white tw-bg-green-500 tw-mt-5 tw-p-5 tw-rounded-md">
-           ยินดีด้วย...คุณถูกรางวัลเลขท้าย 2 ตัว
+          ยินดีด้วย...คุณถูกรางวัลเลขท้าย 2 ตัว
         </div>
       );
     }
@@ -159,6 +167,7 @@ const App = () => {
             secondPrizes={secondPrizes}
             sidePrizes={sidePrizes}
             last2DigitsPrize={last2DigitsPrize}
+            tableLotto={tableLotto}
           />
         </div>
 
