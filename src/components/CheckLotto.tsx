@@ -38,7 +38,7 @@ export const CheckLotto: React.FC<ICheckLotto> = (props) => {
           />
           <Button
             onClick={handleCheckPrize}
-            disabled={lottoNumberToCheck !== "" ? false : true}
+            disabled={lottoNumberToCheck.length === 3 ? false : true}
             className="tw-bg-slate-500 tw-text-white hover:tw-bg-slate-300"
           >
             ตรวจรางวัล
