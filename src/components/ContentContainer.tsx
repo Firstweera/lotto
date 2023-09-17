@@ -10,10 +10,8 @@ export const ContentContainer: FC<ContentContainerProps> = ({
   children,
   className,
 }) => {
-  // Initialize a state variable to track dark mode
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -26,7 +24,6 @@ export const ContentContainer: FC<ContentContainerProps> = ({
         className
       )}
     >
-      {/* Dark mode toggle button */}
       <button
         onClick={toggleDarkMode}
         className="tw-absolute tw-top-4 tw-right-4 tw-p-2 tw-bg-gray-300 tw-rounded-full"

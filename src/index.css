@@ -1,7 +1,6 @@
 /* header font */
 @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
-/* Tailwind CSS directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,8 +8,3 @@
 * {
   font-family: 'Prompt', sans-serif;
 }
-
-/* .dark {
-  --bg-primary: #121212;
-  --text-primary: #ffffff;
-} */

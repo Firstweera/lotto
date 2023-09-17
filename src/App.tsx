@@ -147,9 +147,8 @@ const App = () => {
     // Call the checkPrize function to check the prize
     const prizeResult: JSX.Element = checkPrize(lottoNumberToCheck);
     setResultMessage(prizeResult);
-    console.log(prizeResult); // This will log the result of checking the lotto number.
+    // console.log(prizeResult); 
 
-    // Set searchPrizes to true to display the result
     setSearchPrizes(true);
   };
 
